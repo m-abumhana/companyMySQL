@@ -1,9 +1,15 @@
+require "http"
+
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    if params[:user_id].present?
+      @projects = Project.where(user_id: params[:user_id])
+    end
+
+    @projects ||= Project.all
   end
 
   # GET /projects/1 or /projects/1.json
@@ -65,6 +71,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:project_domain, :description, :budget, :estimation)
+      params.require(:project).permit(:project_domain, :description, :budget, :estimation, :user_id)
     end
 end

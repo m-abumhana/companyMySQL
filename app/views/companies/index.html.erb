@@ -15,6 +15,7 @@
         <th scope="col">City</th>
         <th scope="col">Working Days</th>
         <th colspan="3" class="text-center">Action</th>
+        <th scope="col">Users</th>
       </tr>
     </thead>
     <tbody>
@@ -31,6 +32,14 @@
         <th scope="row">  <%= link_to 'Edit', edit_company_path(company) %></th>
         <th scope="row">  <%= link_to 'Delete',
           company_path(company), data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %>
+        </th>
+        <th scope="row">
+          <%= link_to users_path(company_id: company.id) do
+          %>
+          Users<span class="position-absolute top-0 start-100 translate-middle badge text-bg-info">
+                  <%= company.users.count %>
+                </span>
+          <% end %>
         </th>
       </tr>
         <% end %>

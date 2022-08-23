@@ -13,6 +13,7 @@
         <th scope="col">Company</th>
         <th scope="col">User Type</th>
         <th colspan="3" class="text-center">Action</th>
+        <th scope="col">Projects</th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,9 @@
         <th scope="row">  <%= link_to 'Edit', edit_user_path(user) %></th>
         <th scope="row">  <%= link_to 'Delete',
           user_path(user), data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %>
+        </th>
+        <th scope="row">
+          <%= link_to 'Get Project', projects_path(user_id: user.id) %>
         </th>
       </tr>
         <% end %>

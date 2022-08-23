@@ -1,9 +1,13 @@
+
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy projects ]
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    if params[:company_id].present?
+      @users = User.where(company_id: params[:company_id])
+    end
+    @users ||= User.all
   end
 
   # GET /users/1 or /users/1.json
@@ -57,6 +61,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def getURI
+    response = HTTP.get()
+    response.parse
+  end
+  def projects
+    respond_to do |format|
+      format.json { render json: @user.as_json(include: :projects) }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -65,6 +78,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone_number, :company, :user_type)
+      params.require(:user).permit(:first_name, :last_name, :phone_number, :company_id, :user_type)
     end
 end
