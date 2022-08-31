@@ -13,9 +13,6 @@
         <li class="nav-item">
           <%= link_to 'Users', "/users", class: "nav-link" %>
         </li>
-        <li class="nav-item">
-          <%= link_to 'Projects', projects_users_user_path(@users), class: "nav-link" %>
-        </li>
       </ul>
       <div class="navbar-nav mr-auto mb-2 mb-lg-0">
         <%= yield :search_form %>
