@@ -1,6 +1,8 @@
+require 'net/http'
+require 'json'
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy projects ]
+  before_action :set_user, only: %i[ show edit update destroy projects_users ]
 
   # GET /users or /users.json
   def index
@@ -61,14 +63,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def getURI
-    response = HTTP.get()
-    response.parse
-  end
-  def projects
-    respond_to do |format|
-      format.json { render json: @user.as_json(include: :projects) }
-    end
+
+  def projects_users
+    #respond_to do |format|
+      #format.json { render json: @user.as_json(include: :projects) }
+    #end
+    uri = URI("https://api.onlinewebtutorblog.com/projects")
+    params = { :employeeId => @user.id}
+    uri.query = URI.encode_www_form(params)
+    @response = JSON.parse(Net::HTTP.get(uri))
   end
   private
     # Use callbacks to share common setup or constraints between actions.

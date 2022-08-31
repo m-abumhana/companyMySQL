@@ -32,7 +32,7 @@
           user_path(user), data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %>
         </th>
         <th scope="row">
-          <%= link_to 'Get Project', projects_path(user_id: user.id) %>
+          <%= link_to 'Get Project', projects_users_user_path(user) %>
         </th>
       </tr>
         <% end %>
